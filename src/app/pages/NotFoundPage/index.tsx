@@ -1,16 +1,13 @@
 import styled from 'styled-components';
 import pageNotFound from '../../assets/images/pageNotFound.gif';
+// import { Link } from 'react-router-dom';
 import { Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
 const NotFoundPage = () => {
-  const navigate = useNavigate();
   return (
     <Wrapper>
       <img src={pageNotFound} />
       <p>Oops! The page you’re looking for could not be found</p>
-      <Button onClick={() => navigate('/home')}>
-        <span>Go to home page</span>
-      </Button>
+      <Button href="/home">Go to home page</Button>
     </Wrapper>
   );
 };
