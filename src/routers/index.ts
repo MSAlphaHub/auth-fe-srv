@@ -1,6 +1,6 @@
-import routes from './routes';
-import Home from '../app/components/Home';
-import NotFoundPage from '../app/components/NotFoundPage/NotFoundPage';
+import routes from '@routers/routes';
+import Home from '@pages/Home';
+import NotFoundPage from '@pages/NotFoundPage';
 
 const Routers: Types.IRoute[] = [
   {
