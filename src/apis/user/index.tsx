@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import axios, { AxiosResponse } from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_ADMIN_URL_API;
+const API_BASE_URL = process.env.REACT_APP_URL_SERVICE_ABC;
 const apiUser = axios.create({
   baseURL: API_BASE_URL,
 });
