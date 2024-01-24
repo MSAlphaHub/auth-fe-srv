@@ -1,6 +1,6 @@
 import path from 'path';
 import { alias } from './src/config/alias';
-const PREFIX = `./src`;
+const PREFIX = './src';
 const aliases = alias(PREFIX);
 
 const resolvedAliases = Object.fromEntries(
