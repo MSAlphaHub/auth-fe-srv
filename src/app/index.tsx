@@ -22,7 +22,6 @@ function App() {
             const Protected = Fragment;
             const Layout = route.layout ?? Fragment;
             const Component = route.component;
-            console.log(Component);
             // const isAdmin = route.isAdmin;
             return (
               <Route

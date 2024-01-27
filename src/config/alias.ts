@@ -12,5 +12,6 @@ export const alias = (prefix = './src') => ({
   '@constants': `${prefix}/utils/constants`,
   '@hooks': `${prefix}/app/hooks`,
   '@layouts': `${prefix}/layout`,
-  '@stores': `${prefix}/store`,
+  '@store': `${prefix}/store`,
+  '@themes': `${prefix}/themes`,
 });

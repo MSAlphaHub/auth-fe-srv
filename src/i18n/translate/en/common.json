@@ -1,0 +1,13 @@
+{
+	"auth": {
+		"login": "Login",
+		"signUp": "Sign up",
+		"email": "Email",
+		"password": "Password",
+		"header": {
+			"login": "Sign in to your account"
+		}
+	},
+	"label_required": "Required",
+	"label_optional": "Optional"
+}

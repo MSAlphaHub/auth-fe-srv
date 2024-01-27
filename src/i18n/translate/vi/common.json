@@ -1,0 +1,13 @@
+{
+	"auth": {
+		"login": "Đăng nhập",
+		"signUp": "Đăng ký",
+		"email": "Email",
+		"password": "Mật khẩu",
+		"header": {
+			"login": "Đăng nhập vào tài khoản của bạn"
+		}
+	},
+	"label_required": "Bắt buộc",
+	"label_optional": "Tuỳ ý"
+}
