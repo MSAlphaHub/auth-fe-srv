@@ -1,6 +1,8 @@
 import { Form } from 'antd';
 import { useController, useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
+import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 
 const WrapperFormItem = styled(Form.Item)`
   height: max-content;
@@ -18,6 +20,20 @@ const WrapperFormItem = styled(Form.Item)`
     white-space: unset;
     .ant-form-item-no-colon {
       height: 100%;
+    }
+  }
+
+  .wrapper {
+    position: relative;
+    .inputText {
+      width: 100%;
+    }
+    .eye-password {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
     }
   }
 `;
@@ -38,34 +54,40 @@ const FormPassword = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }: any) => {
   const { control } = useFormContext();
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const {
     field: { onChange, value },
     fieldState: { error },
   } = useController({ name, control, rules, defaultValue });
   return (
-    // <WrapperFormItem
-    //   {...wrapperProps}
-    //   label={label && <WrapperLabel>{label}</WrapperLabel>}
-    //   validateStatus={(error) ? 'error' : ''}
-    //   help={error?.message}
-    // >
-    //   <Input.Password onChange={onChange} value={value} {...rest} />
-    // </WrapperFormItem>
-
     <WrapperFormItem
       {...wrapperProps}
       label={label && <WrapperLabel>{label}</WrapperLabel>}
       validateStatus={error ? 'error' : ''}
       help={error?.message}>
-      <input
-        id={name}
-        type="password"
-        placeholder={placeholder}
-        className="inputText"
-        onChange={onChange}
-        value={value}
-        {...rest}
-      />
+      <div className="wrapper">
+        <input
+          id={name}
+          type={isShowPassword ? 'password' : 'text'}
+          placeholder={placeholder}
+          className="inputText"
+          onChange={onChange}
+          value={value}
+          {...rest}
+        />
+        {isShowPassword && (
+          <EyeOutlined
+            className="eye-password"
+            onClick={() => setIsShowPassword(false)}
+          />
+        )}
+        {!isShowPassword && (
+          <EyeInvisibleOutlined
+            className="eye-password"
+            onClick={() => setIsShowPassword(true)}
+          />
+        )}
+      </div>
     </WrapperFormItem>
   );
 };
