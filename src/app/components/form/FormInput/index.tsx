@@ -21,6 +21,9 @@ const WrapperFormItem = styled(Form.Item)`
       height: 100%;
     }
   }
+  .inputText {
+    width: 100%;
+  }
 `;
 
 const WrapperLabel = styled.div`

@@ -12,7 +12,8 @@
     "incorrect_file_type_upload_2": "\"{{ fileName }}\" is in an invalid file format. A pdf, powerpoint, video (mp4, webm) file can be uploaded.",
     "incorrect_end_time": "The course end date and time is set before the course start date and time.",
     "required_limit_date": "Enter the date. (time can be omitted)",
-    "remove_extension": "An extension cannot be changed"
+    "remove_extension": "An extension cannot be changed",
+    "invalid_email": "Invalid email format."
   },
   "COURSE_ALREADY_EXIST": "A course with the same name already exists",
   "ERROR_REGISTER_UNIT_ALREADY_EXIST": "A unit with the same name already exists in the course.",

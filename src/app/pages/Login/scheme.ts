@@ -5,6 +5,11 @@ const scheme = (t: TFunction) =>
   yup.object().shape({
     email: yup
       .string()
+      .email(
+        t('error_message:validation.invalid_email', {
+          key: t('common:auth.email'),
+        }),
+      )
       .trim()
       .required(
         t('error_message:validation.required', {
