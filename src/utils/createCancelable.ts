@@ -8,8 +8,9 @@ export const createCancelable = <T extends AsyncFunction>(fn: T) => {
   const invoke = (...args: Parameters<T>) =>
     new Promise((resolve, reject) => {
       cancel = reject;
-      fn(...args);
-      resolve('done');
+      fn(...args)
+        .then(resolve)
+        .catch(reject);
     });
 
   return {
