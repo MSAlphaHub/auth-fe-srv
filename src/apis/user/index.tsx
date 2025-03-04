@@ -1,19 +1,31 @@
-import { Modal } from 'antd';
+import { BASE_API_URL } from '@utils/constants/endpoint';
+import { getLocalStorage, STORAGE } from '@utils/helpers';
+import { getBearerToken } from '@utils/helpers/auth';
 import axios, { AxiosResponse } from 'axios';
+import configs from 'config';
 
-const API_BASE_URL = process.env.REACT_APP_URL_SERVICE_ABC;
 const apiUser = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: configs.apiGateway,
 });
+
+const refreshAccessToken = async (): Promise<any> => {
+  const refreshToken = getLocalStorage(STORAGE.USER_REFRESH);
+  const data = {
+    refresh_token: refreshToken,
+  };
+  return await apiUser.post(BASE_API_URL.REFRESH_TOKEN, data);
+};
 
 apiUser.interceptors.request.use(
   (config) => {
-    // const stringifiedToken = localStorage.getItem(ACCESS_TOKEN_KEY) || '';
-    // const token = stringifiedToken !== '' ? JSON.parse(stringifiedToken) : '';
-    // const bearerToken = jwtHelper.getBearerToken(token);
+    const accessToken = getLocalStorage(STORAGE.USER_TOKEN);
+    if (!accessToken) {
+      throw new Error('Your access token is null');
+    }
+    const bearerToken = getBearerToken(accessToken);
 
     if (config.headers) {
-      // config.headers['Authorization'] = bearerToken;
+      config.headers['Authorization'] = bearerToken;
     }
 
     return config;
@@ -22,19 +34,20 @@ apiUser.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
 apiUser.interceptors.response.use(
   (response: AxiosResponse) => {
     return response;
   },
   (error) => {
     if (error?.response?.status === 401) {
-      Modal.error({
-        title: 'アクティブなセッションの有効期限が切れました。',
-        onOk: () => {
-          localStorage.clear();
-          window.location.href = '/login';
-        },
-      });
+      // Modal.error({
+      //   title: 'The session has expired.',
+      //   onOk: () => {
+      //     localStorage.clear();
+      //     window.location.href = '/login';
+      //   },
+      // });
     }
     // error common
     if (error?.response?.status === 403) {

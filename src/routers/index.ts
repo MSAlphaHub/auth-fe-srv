@@ -2,6 +2,7 @@ import routes from '@routers/routes';
 import Home from '@pages/Home';
 import Login from '@pages/Login';
 import NotFoundPage from '@pages/NotFoundPage';
+import QRCodeScanner from '@components/QRCodeScanner';
 
 const Routers: Types.IRoute[] = [
   {
@@ -15,6 +16,13 @@ const Routers: Types.IRoute[] = [
     key: 2,
     path: routes.LOGIN,
     component: Login,
+    isProtected: true,
+    isAdmin: false,
+  },
+  {
+    key: 3,
+    path: 'qr-scanner',
+    component: QRCodeScanner,
     isProtected: true,
     isAdmin: false,
   },

@@ -1,14 +1,16 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import { useAuth } from '@store/auth/auth.selector';
 import { FormInput, FormPassword, FormLabel } from '@components';
 import { Wrapper, Right } from '@themes/facit';
 import LoginScheme from './scheme';
+
 import { Row } from './styled';
 import i18next from '@i18n';
+import QRCodeLogin from '@pages/LoginQRCode';
 
 const Login = () => {
   const { t } = useTranslation(['common']);
@@ -17,10 +19,12 @@ const Login = () => {
   });
   const { handleSubmit } = form;
   const { onLogin } = useAuth();
-
+  const [isQRCodeOpen, setIsQRCodeOpen] = useState<boolean>(false);
+  const handleOk = useCallback(() => {
+    setIsQRCodeOpen(false);
+  }, []);
   const onSubmit = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (data: any) => {
+    (data: Types.ILoginRequest) => {
       onLogin(data);
     },
     [onLogin],
@@ -28,6 +32,15 @@ const Login = () => {
 
   return (
     <Wrapper>
+      <Modal
+        title={i18next.t('common:auth.header.qr_code')}
+        open={isQRCodeOpen}
+        footer={null}
+        closable={true}
+        onCancel={handleOk}
+        width={400}>
+        <QRCodeLogin />
+      </Modal>
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -64,6 +77,12 @@ const Login = () => {
                   htmlType="submit"
                   style={{ color: '#333' }}>
                   Login
+                </Button>
+                <Button
+                  type="primary"
+                  style={{ color: '#333' }}
+                  onClick={() => setIsQRCodeOpen(true)}>
+                  Login with QR Code
                 </Button>
               </div>
             </form>
